@@ -11,7 +11,7 @@ public:
     TStack() : top_index(-1) {}
     void push(T value) {
         if (top_index == size - 1) {
-            std::cerr << "Stack is full" << std::endl;
+            throw std::string("Stack is full");
             return;
         }
         data[++top_index] = value;
@@ -19,7 +19,7 @@ public:
 
     T pop() {
         if (isEmpty()) {
-            std::cerr << "Stack is empty" << std::endl;
+            throw std::string("Stack is empty");
             return T();
         }
         return data[top_index--];
@@ -27,7 +27,7 @@ public:
 
     T top() {
         if (isEmpty()) {
-            std::cerr << "Stack is empty" << std::endl;
+            throw std::string("Stack is empty");
             return T();
         }
         return data[top_index];
