@@ -2,7 +2,7 @@
 #include <string>
 #include <map>
 #include "tstack.h"
-#include <iostream>
+#include <stack>
 
 bool isOperator(char c) {
   return (c == '+' || c == '-' || c == '*' || c == '/');
