@@ -6,7 +6,7 @@ bool isOp(char c) {
   return (c == '+' || c == '-' || c == '*' || c == '/');
 }
 
-int precedence(char c) {
+int prec(char c) {
   if (c == '+' || c == '-') {
     return 1;
   } else if (c == '*' || c == '/') {
@@ -23,8 +23,8 @@ std::string infx2pstfx(std::string inf) {
             postfix = postfix + c + ' ';
         } else if (c == '(') {
             stack.push(c);
-        } else if (precedence(c)) {
-          while (!stack.isEmpty() && isOp(stack.get()) >= isOp(c)) {
+        } else if (isOp(c)) {
+          while (!stack.isEmpty() && prec(stack.get()) >= prec(c)) {
             postfix = postfix + stack.get() + ' ';
             stack.pop();
           }
