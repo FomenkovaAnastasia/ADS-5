@@ -4,9 +4,11 @@
 
 template<typename T, int size>
 class TStack {
+
 private:
     T data[100];
     int top_index;
+
 public:
     TStack() : top_index(-1) {}
     void push(T value) {
