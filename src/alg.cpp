@@ -1,10 +1,8 @@
 // Copyright 2021 NNTU-CS
 #include <map>
 #include "tstack.h"
-#include <stack>
-#include "alg.h"
 
-bool isOperator(char c) {
+bool isOp(char c) {
   return (c == '+' || c == '-' || c == '*' || c == '/');
 }
 
@@ -26,17 +24,17 @@ std::string infx2pstfx(std::string inf) {
         } else if (c == '(') {
             stack.push(c);
         } else if (precedence(c)) {
-            while (!stack.isEmpty() && isOperator(stack.get()) >= isOperator(c)) {
-                postfix = postfix + stack.get() + ' ';
-                stack.pop();
-            }
-            stack.push(c);
-        } else if (c == ')') {
-            while (!stack.isEmpty() && stack.get() != '(') {
-                postfix = postfix + stack.get() + ' ';
-                stack.pop();
-            }
+          while (!stack.isEmpty() && isOp(stack.get()) >= isOp(c)) {
+            postfix = postfix + stack.get() + ' ';
             stack.pop();
+          }
+          stack.push(c);
+        } else if (c == ')') {
+          while (!stack.isEmpty() && stack.get() != '(') {
+            postfix = postfix + stack.get() + ' ';
+            stack.pop();
+          }
+          stack.pop();
         }
     }
     while (!stack.isEmpty()) {
@@ -54,7 +52,7 @@ int eval(std::string post) {
   for (char c : post) {
     if (std::isdigit(c)) {
       stack.push(c - '0');
-    } else if (isOperator(c)) {
+    } else if (isOp(c)) {
       int operand2 = stack.pop();
       int operand1 = stack.pop();
       switch (c) {
