@@ -19,34 +19,34 @@ int precedence(char c) {
 
 std::string infx2pstfx(std::string inf) {
   TStack<char, 100> stack;
-  std::string post;
+  std::string pref;
   for (char c : inf) {
     if (std::isalnum(c)) {
-      post += c;
+      pref += c;
     } else if (c == '(') {
       stack.push(c);
     } else if (c == ')') {
       while (!stack.isEmpty() && stack.top() != '(') {
-        post += stack.pop();
+        pref += stack.pop();
       }
       stack.pop();
     } else {
       while (!stack.isEmpty() && precedence(c) <= precedence(stack.top())) {
-        post += stack.pop();
+        pref += stack.pop();
       }
       stack.push(c);
     }
   }
   while (!stack.isEmpty()) {
-    post += stack.pop();
+    pref += stack.pop();
   }
-  return post;
+  return pref;
   return std::string("");
 }
 
 int eval(std::string pref) {
   TStack<int, 100> stack;
-  for (char c : post) {
+  for (char c : pref) {
     if (std::isdigit(c)) {
       stack.push(c - '0');
     } else if (isOperator(c)) {
