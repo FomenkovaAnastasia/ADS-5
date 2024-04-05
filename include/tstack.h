@@ -5,11 +5,10 @@
 template<typename T, int size>
 class TStack {
 private:
-    T data[size];
+    T data[100];
     int top_index;
 public:
     TStack() : top_index(-1) {}
-
     void push(T value) {
         if (top_index == size - 1) {
             std::cerr << "Stack is full" << std::endl;
