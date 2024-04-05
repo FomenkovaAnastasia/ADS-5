@@ -5,11 +5,11 @@
 #include <string>
 template<typename T, int size>
 class TStack {
- private: 
+ private:
     T data[100];
     int top_index;
 
- public: 
+ public:
     TStack() : top_index(-1) {}
     void push(T value) {
        if (top_index != size - 1) {
