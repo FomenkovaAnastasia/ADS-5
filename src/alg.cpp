@@ -1,6 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include <map>
 #include "tstack.h"
+#include <stack>
 
 bool isOperator(char c) {
   return (c == '+' || c == '-' || c == '*' || c == '/');
@@ -17,7 +18,7 @@ int precedence(char c) {
 
 std::string infx2pstfx(std::string inf) {
   std::string postfix;
-  Stack<char, 100> stack;
+  TStack<char, 100> stack;
   for (char c : inf) {
     if (isdigit(c)) {
       postfix = postfix + c + ' ';
