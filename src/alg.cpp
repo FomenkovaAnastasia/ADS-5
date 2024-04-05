@@ -1,9 +1,6 @@
 // Copyright 2021 NNTU-CS
-#include <string>
 #include <map>
-#include "alg.h"
 #include "tstack.h"
-#include <stack>
 
 bool isOperator(char c) {
   return (c == '+' || c == '-' || c == '*' || c == '/');
@@ -19,35 +16,32 @@ int precedence(char c) {
 }
 
 std::string infx2pstfx(std::string inf) {
-  TStack<char, 100> stack;
-  std::string pref;
+  std::string postfix;
+  Stack<char, 100> stack;
   for (char c : inf) {
-    if (std::isalnum(c)) {
-      pref += c;
+    if (isdigit(c)) {
+      postfix = postfix + c + ' ';
     } else if (c == '(') {
       stack.push(c);
-    } else if (c == ')') {
-      while (!stack.isEmpty() && stack.top() != '(') {
-        pref += stack.pop();
-      }
-      stack.pop();
-    } else {
-      while (!stack.isEmpty() && precedence(c) <= precedence(stack.top())) {
-        pref += stack.pop();
+    } else if (precedence(c)) {
+      while (!stack.isEmpty() && isOperator(stack.get()) >= isOperator(c)) {
+        postfix = postfix + stack.get() + ' ';
+        stack.pop();
       }
       stack.push(c);
+    } else if (c == ')') {
+      while (!stack.isEmpty() && stack.get() != '(') {
+        postfix = postfix + stack.get() + ' ';
+        stack.pop();
+      }
+      stack.pop();
     }
   }
-  while (!stack.isEmpty()) {
-    pref += stack.pop();
-  }
-  return pref;
-  return std::string("");
 }
 
-int eval(std::string pref) {
+int eval(std::string post) {
   TStack<int, 100> stack;
-  for (char c : pref) {
+  for (char c : post) {
     if (std::isdigit(c)) {
       stack.push(c - '0');
     } else if (isOperator(c)) {
