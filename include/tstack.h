@@ -5,13 +5,13 @@
 #include <string>
 template<typename T, int size>
 class TStack {
-private:
-   T data[100];
-   int top_index;
+ private: 
+    T data[100];
+    int top_index;
 
-public:
-   TStack() : top_index(-1) {}
-   void push(T value) {
+ public: 
+    TStack() : top_index(-1) {}
+    void push(T value) {
        if (top_index != size - 1) {
            data[++top_index] = value;
        } else {
@@ -20,7 +20,7 @@ public:
     }
 
     T get() const {
-        return data[top_index]
+        return data[top_index];
     }
     T pop() {
         if (isEmpty()) {
